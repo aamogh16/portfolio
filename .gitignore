@@ -7,6 +7,10 @@ dist-ssr
 .env.local
 .env.*.local
 
+# Sanity Studio build output
+.sanity
+sanity-studio/dist
+
 .DS_Store
 .idea
 .vscode/*
