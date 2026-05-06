@@ -1,0 +1,141 @@
+export const about = {
+  body: [
+    'Hi, I’m Amogh — a student, builder, and notorious over-thinker of small details. I spend most of my time writing software, sketching out side projects late at night, and trying to make tools I actually want to use.',
+    'I’m drawn to systems that are fast, quiet, and a little bit opinionated. I like the seams where design meets engineering, where a thoughtful interface can make a complicated thing feel calm.',
+    'Outside of code, I read a lot, take too many photos, and keep a running list of cafés ranked by how loud their espresso machines are.',
+  ],
+}
+
+export type Experience = {
+  role: string
+  company: string
+  href?: string
+  period: string
+  location?: string
+  bullets: string[]
+  stack?: string[]
+}
+
+export const experience: Experience[] = [
+  {
+    role: 'Software Engineer Intern',
+    company: 'Placeholder Co.',
+    href: 'https://example.com',
+    period: 'May 2025 — Aug 2025',
+    location: 'Boston, MA',
+    bullets: [
+      'Built a thing that did a thing, faster than the previous thing.',
+      'Owned a sub-system end to end — design, ship, monitor, iterate.',
+      'Wrote internal tooling that other engineers actually used (rare).',
+    ],
+    stack: ['TypeScript', 'React', 'Postgres', 'AWS'],
+  },
+  {
+    role: 'Research Assistant',
+    company: 'Some Lab @ Northeastern',
+    period: 'Jan 2025 — Apr 2025',
+    location: 'Boston, MA',
+    bullets: [
+      'Prototyped a small system to explore an even smaller idea.',
+      'Cleaned data, ran experiments, made graphs that survived peer review.',
+    ],
+    stack: ['Python', 'PyTorch'],
+  },
+  {
+    role: 'Software Developer',
+    company: 'A Student Org',
+    period: 'Sep 2024 — Present',
+    bullets: [
+      'Shipped a member-facing dashboard used by ~200 people each week.',
+      'Set up the boring stuff: CI, types, lint, deploys — so it stayed boring.',
+    ],
+    stack: ['Next.js', 'TypeScript', 'Supabase'],
+  },
+]
+
+export type Project = {
+  name: string
+  blurb: string
+  href?: string
+  repo?: string
+  year: number
+  stack?: string[]
+}
+
+export const projects: Project[] = [
+  {
+    name: 'lorem',
+    blurb: 'A tiny CLI for generating placeholder text that doesn’t feel like placeholder text.',
+    href: '#',
+    repo: '#',
+    year: 2025,
+    stack: ['Rust'],
+  },
+  {
+    name: 'cafe-rank',
+    blurb: 'A self-hosted ranking app for cafés, scored on noise, light, wifi, and vibes.',
+    href: '#',
+    year: 2025,
+    stack: ['Next.js', 'Postgres'],
+  },
+  {
+    name: 'mono',
+    blurb: 'A monospace blog engine. Markdown in, static site out, no surprises.',
+    repo: '#',
+    year: 2024,
+    stack: ['TypeScript', 'Vite'],
+  },
+  {
+    name: 'tide',
+    blurb: 'Personal habit-tracker that grades a week from A to F. Mostly Fs so far.',
+    year: 2024,
+    stack: ['Swift'],
+  },
+]
+
+export type Thought = {
+  slug: string
+  title: string
+  date: string
+  preview: string
+}
+
+export const thoughts: Thought[] = [
+  {
+    slug: 'on-small-tools',
+    title: 'On the quiet joy of small tools',
+    date: '2026-04-22',
+    preview:
+      'A short essay on why the most-used software in my life is the stuff I built in an afternoon and never touched again.',
+  },
+  {
+    slug: 'serif-on-the-web',
+    title: 'Serifs belong on the web',
+    date: '2026-03-09',
+    preview:
+      'On reading screens, the texture of letterforms, and why I keep dragging Playfair into projects it has no business being in.',
+  },
+  {
+    slug: 'cold-mornings',
+    title: 'Cold mornings, warm terminals',
+    date: '2026-01-14',
+    preview:
+      'Notes on a winter spent rewriting my dotfiles for the third time, and what I learned from doing nothing useful.',
+  },
+]
+
+export type Photo = {
+  src: string
+  caption: string
+  ratio?: 'square' | 'portrait' | 'landscape'
+}
+
+// Placeholder images use solid blocks rendered in CSS — see PhotosSection.
+export const photos: Photo[] = [
+  { src: '#a', caption: 'rooftop, boston — march', ratio: 'landscape' },
+  { src: '#b', caption: 'kitchen window, 7am', ratio: 'portrait' },
+  { src: '#c', caption: 'someone’s bookshelf', ratio: 'square' },
+  { src: '#d', caption: 'a long train', ratio: 'landscape' },
+  { src: '#e', caption: 'tea, again', ratio: 'square' },
+  { src: '#f', caption: 'snow on the fire escape', ratio: 'portrait' },
+]
