@@ -7,49 +7,77 @@ export const about = {
 }
 
 export type Experience = {
+  kind?: 'work' | 'edu'
   role: string
   company: string
   href?: string
   period: string
   location?: string
-  bullets: string[]
+  bullets?: string[]
   stack?: string[]
+  /** Optional inline paragraph (used by education for GPA + coursework). */
+  detail?: string
+  /** Small badge (e.g. "incoming", "co-op"). */
+  tag?: string
 }
 
 export const experience: Experience[] = [
   {
     role: 'Software Engineer Intern',
-    company: 'Placeholder Co.',
-    href: 'https://example.com',
-    period: 'May 2025 — Aug 2025',
+    company: 'Chewy',
+    href: 'https://chewy.com',
+    period: 'Jun 2026 — Aug 2026',
     location: 'Boston, MA',
-    bullets: [
-      'Built a thing that did a thing, faster than the previous thing.',
-      'Owned a sub-system end to end — design, ship, monitor, iterate.',
-      'Wrote internal tooling that other engineers actually used (rare).',
-    ],
-    stack: ['TypeScript', 'React', 'Postgres', 'AWS'],
+    tag: 'incoming',
   },
   {
-    role: 'Research Assistant',
-    company: 'Some Lab @ Northeastern',
-    period: 'Jan 2025 — Apr 2025',
+    role: 'Software Engineer Co-op',
+    company: 'Wellington Management',
+    href: 'https://www.wellington.com',
+    period: 'Jan 2026 — Present',
     location: 'Boston, MA',
+    tag: 'co-op',
     bullets: [
-      'Prototyped a small system to explore an even smaller idea.',
-      'Cleaned data, ran experiments, made graphs that survived peer review.',
+      'Engineered a full-stack alert monitoring dashboard surfacing 2,000+ classified alerts via AWS Lambda and optimized SQL — auto-flagging critical and unknown incidents with supplemental log enrichment, replacing manual email triage for 20 release engineers.',
+      'Refactored a legacy health-check utility serving every portfolio application, cutting AWS Lambda runtime by 30% through better resource allocation and tighter code paths.',
+      'Building a CLI disaster-recovery tool to streamline critical system restoration workflows, expanding access for engineers across teams.',
+      'Leveraged AWS (Lambda, CloudWatch, EC2) to keep 99.9%+ uptime for trading systems managing billions in assets.',
     ],
-    stack: ['Python', 'PyTorch'],
+    stack: ['AWS Lambda', 'CloudWatch', 'EC2', 'SQL', 'Python'],
   },
   {
-    role: 'Software Developer',
-    company: 'A Student Org',
-    period: 'Sep 2024 — Present',
+    role: 'Software Engineer',
+    company: 'Generate — Product Development Studio',
+    href: 'https://www.generatenu.com',
+    period: 'Sep 2025 — Present',
+    location: 'Boston, MA',
     bullets: [
-      'Shipped a member-facing dashboard used by ~200 people each week.',
-      'Set up the boring stuff: CI, types, lint, deploys — so it stayed boring.',
+      'Building Toggo, a full-stack group travel-planning mobile app, with a 6-person team using Expo, React Native, Go, PostgreSQL, Redis, WebSockets, and AWS S3 — weekly Agile sprints toward a client-driven MVP.',
+      'Architected and shipped an Expo push-notification service using the Go SDK supporting 4 notification types, with bulk multi-user delivery, device-token persistence, and mock-tested external service integration.',
+      'Built the end-to-end trip-pitch feature: 5 REST endpoints with pagination, S3 audio storage via presigned URLs, and automated push notifications triggering on pitch creation for every group member.',
     ],
-    stack: ['Next.js', 'TypeScript', 'Supabase'],
+    stack: ['React Native', 'Expo', 'Go', 'PostgreSQL', 'Redis', 'WebSockets', 'AWS S3'],
+  },
+  {
+    role: 'Software Engineer Intern',
+    company: 'Wind River Environmental',
+    period: 'Jun 2023 — Aug 2024',
+    location: 'Marlborough, MA',
+    bullets: [
+      'Cleaned 25,000+ customer profiles in the database, merging and deactivating accounts to prevent unnecessary messaging and reduce costs.',
+      'Developed frontend UI improvements and 2+ responsive pages in HTML/CSS/JavaScript, supporting a 15% increase in online inquiries while collaborating with a 12-person IT team in an Agile environment.',
+    ],
+    stack: ['HTML', 'CSS', 'JavaScript'],
+  },
+  {
+    kind: 'edu',
+    role: 'B.S. Computer Science, Minor in Business Admin.',
+    company: 'Northeastern University · Khoury College of Computer Science',
+    href: 'https://www.khoury.northeastern.edu',
+    period: 'Aug 2024 — May 2028',
+    location: 'Boston, MA',
+    detail:
+      '4.0 GPA. Coursework: Object Oriented Design, Databases, Data Structures + Algorithms, Fundamentals of Computer Science I/II, Cloud Computing, Foundations of Data Science, Intro to Cybersecurity.',
   },
 ]
 
@@ -68,67 +96,37 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    name: 'lorem',
-    blurb: 'A tiny CLI for generating placeholder text that doesn’t feel like placeholder text.',
-    href: '#',
-    repo: '#',
+    name: 'S.H.I.E.L.D.',
+    blurb:
+      'AI-driven threat-intelligence platform that ingests, classifies, and scores hundreds of news articles per day.',
     year: 2025,
-    stack: ['Rust'],
+    stack: ['Python', 'FastAPI', 'SQLAlchemy', 'Gemini API', 'SQLite', 'Pydantic'],
     description: [
-      'I got tired of every placeholder generator giving me the same eight Latin sentences. lorem is a CLI that produces text that reads like real prose — tuned to your domain (essay, product copy, code comments) and length.',
-      'It’s about 600 lines of Rust, ships as a single static binary, and does one thing: print convincingly fake words to stdout. No config, no flags you have to memorize, no plugins.',
+      'S.H.I.E.L.D. is a threat-monitoring platform that pulls 300+ news articles per day from NewsAPI, runs them through Gemini for classification and severity scoring, and exposes the results behind a clean REST API for downstream consumers.',
+      'The pipeline handles the unglamorous parts of an LLM-backed system: deduplication, batched calls to stay within rate limits, scheduled hourly processing, and a human-review path for ambiguous flags.',
     ],
     highlights: [
-      '600 lines of Rust, single static binary',
-      'Domain modes: essay / product / comments',
-      'Reads stdin to mimic the cadence of an existing piece of text',
+      'Processes 300+ articles per day with deduplication and batched LLM calls',
+      'REST API with 8+ endpoints for retrieval, filtering, and human review',
+      'APScheduler-based hourly monitoring; 15–20 articles per run with 1–10 severity scoring',
+      'Strict request/response validation with Pydantic',
     ],
   },
   {
-    name: 'cafe-rank',
-    blurb: 'A self-hosted ranking app for cafés, scored on noise, light, wifi, and vibes.',
-    href: '#',
+    name: 'CineCircle',
+    blurb:
+      'Mobile-first social space for Indian cinema discussions, built with a 6-person team for the South Asian student community on campus.',
     year: 2025,
-    stack: ['Next.js', 'Postgres'],
+    stack: ['React Native', 'Expo', 'TypeScript', 'Node.js', 'Express.js', 'Prisma', 'Supabase'],
     description: [
-      'A small private app I keep on my phone. I rate every café I work from on four axes — noise, light, wifi, vibe — and the app sorts them so I always know where to go when I need to think.',
-      'Yes, this is silly. No, I will not stop using it.',
+      'CineCircle is a full-stack mobile app where people can discover, discuss, and rate Indian films. It pulls movie data from TMDB and layers a social graph on top so conversation actually happens around what people are watching.',
+      'I built much of the backend: a 15+ endpoint REST API with Express and TypeScript, a Prisma data layer over Supabase, and the search + movie-detail flows on the client. We shipped against weekly Agile sprints with a 6-person team for campus deployment.',
     ],
     highlights: [
-      'Four-axis 1–5 scoring (noise, light, wifi, vibe)',
-      'Private, single-user; deployed on Vercel + Neon',
-      'Apple Maps integration so the right café is always one tap away',
-    ],
-  },
-  {
-    name: 'mono',
-    blurb: 'A monospace blog engine. Markdown in, static site out, no surprises.',
-    repo: '#',
-    year: 2024,
-    stack: ['TypeScript', 'Vite'],
-    description: [
-      'mono is the smallest blog engine I could justify writing. You drop markdown files into a folder, run the build, and it spits out a static site that looks like a man page on purpose.',
-      'I wrote it because every off-the-shelf option made me read 40 pages of docs to change a font size.',
-    ],
-    highlights: [
-      'No JS in the output, ever',
-      'Build is one TypeScript file',
-      'Theming is a ~30 line CSS variable block',
-    ],
-  },
-  {
-    name: 'tide',
-    blurb: 'Personal habit-tracker that grades a week from A to F. Mostly Fs so far.',
-    year: 2024,
-    stack: ['Swift'],
-    description: [
-      'I do not need another habit app to gently encourage me. I need an app that gives me a letter grade at the end of the week and makes me feel something.',
-      'tide is a SwiftUI app I built in a weekend. You define what counts as a "good" week. It grades you. That is the whole pitch.',
-    ],
-    highlights: [
-      'Letter grades for the week (and a quiet shame counter)',
-      'All on-device — no servers, no accounts',
-      'Live activity widget that does one thing: judges you',
+      '15+ REST endpoints (Express + TypeScript) backed by Prisma + Supabase',
+      'TMDB integration for movie data; comprehensive search and detail screens',
+      'CRUD across users, posts, reviews, and movie metadata',
+      'Shipped through weekly Agile sprints with a 6-person team',
     ],
   },
 ]

@@ -19,8 +19,9 @@ const experienceFile: FsNode = {
     `# experience`,
     '',
     ...experience.flatMap((j) => [
-      `${j.role} @ ${j.company}  (${j.period})`,
-      ...j.bullets.map((b) => `  • ${b}`),
+      `${j.role} @ ${j.company}  (${j.period})${j.tag ? `  [${j.tag}]` : ''}`,
+      ...(j.detail ? [`  ${j.detail}`] : []),
+      ...(j.bullets ?? []).map((b) => `  • ${b}`),
       j.stack ? `  stack: ${j.stack.join(', ')}` : '',
       '',
     ]),
