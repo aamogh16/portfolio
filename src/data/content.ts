@@ -98,6 +98,11 @@ export type Thought = {
   title: string
   date: string
   preview: string
+  /**
+   * Plain-text paragraphs for the placeholder version. Sanity-backed thoughts
+   * use Portable Text instead — see ThoughtsSection.
+   */
+  body?: string[]
 }
 
 export const thoughts: Thought[] = [
@@ -107,6 +112,11 @@ export const thoughts: Thought[] = [
     date: '2026-04-22',
     preview:
       'A short essay on why the most-used software in my life is the stuff I built in an afternoon and never touched again.',
+    body: [
+      'There’s a particular kind of software I love that nobody talks about. It’s the script you wrote on a Tuesday because you were tired of doing the same task by hand. It runs in seven lines, takes one argument, has no tests, no readme, and no future. You will use it every day for the next six years.',
+      'These tools have a specific flavor — they are not products. They were not designed. They were grown the way moss grows: a little at a time, in response to the conditions around them. Small tools are honest. They never pretend to be more than they are.',
+      'I think about this a lot when I’m starting something new. The temptation is always to build the cathedral. But almost everything I’ve built that mattered started as a snippet I copied from one terminal to another for two weeks before bothering to make it permanent.',
+    ],
   },
   {
     slug: 'serif-on-the-web',
@@ -114,6 +124,11 @@ export const thoughts: Thought[] = [
     date: '2026-03-09',
     preview:
       'On reading screens, the texture of letterforms, and why I keep dragging Playfair into projects it has no business being in.',
+    body: [
+      'Sans-serif won the web a long time ago, and for good reasons — early displays were terrible at rendering small letterforms, and serifs disappeared into a smudge of grey. That’s not the world we live in anymore. Modern displays are good. Hinting is good. The web has caught up.',
+      'What we lost, when we picked sans for everything, was texture. Serifs slow you down in a particular way. They give a paragraph cadence. They make a long block of text feel like something you want to sit with instead of skim.',
+      'Of course, you can’t just slap Playfair on a checkout button and call it a day. But for personal sites — the kind that are mostly someone trying to say something — I’ll take a serif every time.',
+    ],
   },
   {
     slug: 'cold-mornings',
@@ -121,6 +136,11 @@ export const thoughts: Thought[] = [
     date: '2026-01-14',
     preview:
       'Notes on a winter spent rewriting my dotfiles for the third time, and what I learned from doing nothing useful.',
+    body: [
+      'There’s a window in January where I get nothing done and feel great about it. The sun comes in flat and yellow at 9am, the apartment is freezing, and I sit at my desk in two sweaters rewriting my dotfiles for the third time.',
+      'It is, by any reasonable measure, a waste of time. I am not faster afterwards. The new shell prompt is functionally identical to the old shell prompt. The new keybindings will be re-learned and forgotten by March.',
+      'But the thing about messing with your tools is that you are, briefly, just a person making something for one user — yourself. There is nobody to ship to. No bug report. No standup. The reward is the doing.',
+    ],
   },
 ]
 

@@ -1,5 +1,8 @@
+import { useState } from 'react'
+import type { PortableTextBlock } from '@portabletext/react'
 import { thoughts as fallbackThoughts, type Thought } from '../data/content'
 import { SectionHeading } from '../components/SectionHeading'
+import { ThoughtModal, type ModalThought } from '../components/ThoughtModal'
 import { useSanityQuery } from '../lib/useSanityQuery'
 
 const fmt = (d: string) =>
@@ -11,27 +14,43 @@ type SanityThought = {
   slug: { current: string }
   date: string
   preview: string
+  body?: PortableTextBlock[]
 }
 
 const QUERY = `*[_type == "thought"] | order(coalesce(order, 9999) asc, date desc) {
-  _id, title, slug, date, preview
+  _id, title, slug, date, preview, body
 }`
 
-function normalize(items: SanityThought[] | null): Thought[] | null {
+type DisplayThought = Thought & { _id?: string; portableBody?: PortableTextBlock[] }
+
+function normalize(items: SanityThought[] | null): DisplayThought[] | null {
   if (!items) return null
   return items.map((t) => ({
+    _id: t._id,
     slug: t.slug.current,
     title: t.title,
     date: t.date,
     preview: t.preview,
+    portableBody: t.body,
   }))
 }
 
 export function ThoughtsSection() {
   const { data, loading } = useSanityQuery<SanityThought[]>(QUERY)
   const live = normalize(data)
-  // Fall back to placeholder content when Sanity is unconfigured or empty.
-  const items = live && live.length > 0 ? live : fallbackThoughts
+  const items: DisplayThought[] = live && live.length > 0 ? live : fallbackThoughts
+
+  const [openSlug, setOpenSlug] = useState<string | null>(null)
+  const active = items.find((t) => t.slug === openSlug) ?? null
+
+  const modalThought: ModalThought | null = active
+    ? {
+        title: active.title,
+        date: active.date,
+        preview: active.preview,
+        body: active.portableBody ?? active.body,
+      }
+    : null
 
   return (
     <section className="container-prose py-20 md:py-28">
@@ -43,7 +62,11 @@ export function ThoughtsSection() {
         <ul className="space-y-10">
           {items.map((t) => (
             <li key={t.slug} className="group">
-              <a href={`#${t.slug}`} className="block">
+              <button
+                type="button"
+                onClick={() => setOpenSlug(t.slug)}
+                className="w-full text-left"
+              >
                 <div className="font-mono text-xs text-ink-faint">{fmt(t.date)}</div>
                 <h3 className="mt-1 font-serif text-3xl tracking-tight group-hover:italic transition-all">
                   {t.title}
@@ -52,11 +75,17 @@ export function ThoughtsSection() {
                 <div className="mt-3 font-mono text-xs uppercase tracking-[0.2em] text-ink-faint group-hover:text-ink">
                   read more →
                 </div>
-              </a>
+              </button>
             </li>
           ))}
         </ul>
       )}
+
+      <ThoughtModal
+        open={openSlug !== null}
+        thought={modalThought}
+        onClose={() => setOpenSlug(null)}
+      />
     </section>
   )
 }
