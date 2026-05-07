@@ -26,7 +26,7 @@ export function Nav({ onOpenTerminal, resolvedTheme, onToggleTheme }: Props) {
         <div className="flex items-center gap-2">
           <button
             onClick={onToggleTheme}
-            className="font-mono text-base leading-none w-9 h-9 flex items-center justify-center border border-ink/20 text-ink-muted hover:text-ink hover:border-ink/40 transition-colors"
+            className="font-mono text-base leading-none px-2.5 py-1.5 border border-ink/20 text-ink-muted hover:text-ink hover:border-ink/40 transition-colors"
             aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
             title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
           >
