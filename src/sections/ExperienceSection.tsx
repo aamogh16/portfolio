@@ -61,9 +61,9 @@ function Row({ job }: { job: Experience }) {
             <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint mb-2">
               activities
             </div>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5 text-ink-soft">
+            <ul className="columns-1 sm:columns-2 gap-x-6 text-ink-soft [&>li]:break-inside-avoid">
               {job.involvement.map((it, k) => (
-                <li key={k} className="flex gap-3 text-sm">
+                <li key={k} className="flex gap-3 text-sm py-0.5">
                   <span className="font-mono text-ink-faint select-none">·</span>
                   <span>
                     <span className="text-ink">{it.role}</span>
