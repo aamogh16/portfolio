@@ -56,6 +56,37 @@ function Row({ job }: { job: Experience }) {
           <p className="mt-4 text-ink-soft max-w-prose leading-relaxed">{job.detail}</p>
         )}
 
+        {job.involvement && job.involvement.length > 0 && (
+          <div className="mt-5">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint mb-2">
+              activities
+            </div>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5 text-ink-soft">
+              {job.involvement.map((it, k) => (
+                <li key={k} className="flex gap-3 text-sm">
+                  <span className="font-mono text-ink-faint select-none">·</span>
+                  <span>
+                    <span className="text-ink">{it.role}</span>
+                    <span className="text-ink-muted"> @ </span>
+                    {it.href ? (
+                      <a
+                        href={it.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="underline decoration-ink/20 underline-offset-4 hover:decoration-ink"
+                      >
+                        {it.org}
+                      </a>
+                    ) : (
+                      <span>{it.org}</span>
+                    )}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         {job.bullets && job.bullets.length > 0 && (
           <ul className="mt-4 space-y-2 text-ink-soft">
             {job.bullets.map((b, j) => (

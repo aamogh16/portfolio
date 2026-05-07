@@ -1,7 +1,39 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react'
-import { fmtPath } from './fs'
+import type { PortableTextBlock } from '@portabletext/react'
+import { buildFs, fmtPath, type FsPhoto, type FsThought } from './fs'
 import { bannerText, complete, helpText, run, type Line } from './commands'
 import { site } from '../data/site'
+import {
+  thoughts as fallbackThoughts,
+  photos as fallbackPhotos,
+} from '../data/content'
+import { useSanityQuery } from '../lib/useSanityQuery'
+import { sanityEnabled, urlFor } from '../lib/sanity'
+
+type SanityThought = {
+  _id: string
+  title: string
+  slug: { current: string }
+  date: string
+  preview: string
+  body?: PortableTextBlock[]
+}
+
+type SanityPhoto = {
+  _id: string
+  caption: string
+  ratio?: 'square' | 'portrait' | 'landscape'
+  takenAt?: string
+  image: { asset: { _ref: string } }
+}
+
+const THOUGHTS_QUERY = `*[_type == "thought"] | order(coalesce(order, 9999) asc, date desc) {
+  _id, title, slug, date, preview
+}`
+
+const PHOTOS_QUERY = `*[_type == "photo" && defined(image)] | order(coalesce(order, 9999) asc, takenAt desc) {
+  _id, caption, ratio, takenAt, image
+}`
 
 type Props = {
   open: boolean
@@ -20,6 +52,42 @@ export function Terminal({ open, onClose }: Props) {
 
   const inputRef = useRef<HTMLInputElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
+
+  // Pull the same content the page sections do, so `ls` reflects what's visible.
+  const { data: liveThoughts } = useSanityQuery<SanityThought[]>(THOUGHTS_QUERY)
+  const { data: livePhotos } = useSanityQuery<SanityPhoto[]>(PHOTOS_QUERY)
+
+  const fs = useMemo(() => {
+    const thoughts: FsThought[] =
+      liveThoughts && liveThoughts.length > 0
+        ? liveThoughts.map((t) => ({
+            slug: t.slug.current,
+            title: t.title,
+            date: t.date,
+            preview: t.preview,
+          }))
+        : fallbackThoughts.map((t) => ({
+            slug: t.slug,
+            title: t.title,
+            date: t.date,
+            preview: t.preview,
+          }))
+
+    const photos: FsPhoto[] =
+      sanityEnabled && livePhotos && livePhotos.length > 0
+        ? livePhotos.map((p) => ({
+            caption: p.caption,
+            takenAt: p.takenAt,
+            ratio: p.ratio,
+            fullSrc: urlFor(p.image).width(2000).fit('max').auto('format').url(),
+          }))
+        : fallbackPhotos.map((p) => ({
+            caption: p.caption,
+            ratio: p.ratio,
+          }))
+
+    return buildFs({ thoughts, photos })
+  }, [liveThoughts, livePhotos])
 
   const prompt = useMemo(() => `${site.handle}@${site.host}:${fmtPath(cwd)}$`, [cwd])
 
@@ -78,6 +146,7 @@ export function Terminal({ open, onClose }: Props) {
       },
       openExternal: (href) => window.open(href, '_blank', 'noopener,noreferrer'),
       close: onClose,
+      fs,
     })
   }
 
@@ -89,7 +158,7 @@ export function Terminal({ open, onClose }: Props) {
     }
     if (e.key === 'Tab') {
       e.preventDefault()
-      setInput((cur) => complete(cur, cwd))
+      setInput((cur) => complete(cur, cwd, fs))
       return
     }
     if (e.key === 'l' && (e.ctrlKey || e.metaKey)) {

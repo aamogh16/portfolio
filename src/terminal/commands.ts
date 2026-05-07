@@ -1,4 +1,4 @@
-import { fmtPath, getNode, resolvePath, sectionIds, root } from './fs'
+import { fmtPath, getNode, resolvePath, sectionIds, type FsNode } from './fs'
 import { site, sections } from '../data/site'
 
 export type Line =
@@ -14,6 +14,8 @@ export type CmdContext = {
   scrollTo: (id: string) => void
   openExternal: (href: string) => void
   close: () => void
+  /** The live filesystem, built from page content. */
+  fs: FsNode
 }
 
 const helpRows: Array<[string, string]> = [
@@ -81,7 +83,7 @@ export async function run(input: string, ctx: CmdContext): Promise<void> {
       const target = rest[0] ?? '.'
       const path = resolvePath(ctx.cwd, target)
       if (!path) return ctx.print({ kind: 'err', text: `ls: no such path: ${target}` })
-      const node = getNode(path)
+      const node = getNode(ctx.fs, path)
       if (!node) return ctx.print({ kind: 'err', text: `ls: no such path: ${target}` })
       if (node.type === 'file') return ctx.print({ kind: 'out', text: target })
       const entries = Object.entries(node.children)
@@ -99,7 +101,7 @@ export async function run(input: string, ctx: CmdContext): Promise<void> {
       }
       const path = resolvePath(ctx.cwd, target)
       if (!path) return ctx.print({ kind: 'err', text: `cd: no such directory: ${target}` })
-      const node = getNode(path)
+      const node = getNode(ctx.fs, path)
       if (!node) return ctx.print({ kind: 'err', text: `cd: no such directory: ${target}` })
       if (node.type !== 'dir')
         return ctx.print({ kind: 'err', text: `cd: not a directory: ${target}` })
@@ -116,7 +118,7 @@ export async function run(input: string, ctx: CmdContext): Promise<void> {
       if (!target) return ctx.print({ kind: 'err', text: `cat: missing file operand` })
       const path = resolvePath(ctx.cwd, target)
       if (!path) return ctx.print({ kind: 'err', text: `cat: ${target}: no such file` })
-      const node = getNode(path)
+      const node = getNode(ctx.fs, path)
       if (!node) return ctx.print({ kind: 'err', text: `cat: ${target}: no such file` })
       if (node.type !== 'file')
         return ctx.print({ kind: 'err', text: `cat: ${target}: is a directory` })
@@ -139,7 +141,7 @@ export async function run(input: string, ctx: CmdContext): Promise<void> {
       }
       const path = resolvePath(ctx.cwd, target)
       if (!path) return ctx.print({ kind: 'err', text: `open: ${target}: not found` })
-      const node = getNode(path)
+      const node = getNode(ctx.fs, path)
       if (!node) return ctx.print({ kind: 'err', text: `open: ${target}: not found` })
       if (node.type === 'file' && node.action === 'open' && node.href) {
         ctx.openExternal(node.href)
@@ -213,7 +215,7 @@ const allCommands = [
   'goto',
 ]
 
-export function complete(input: string, cwd: string[]): string {
+export function complete(input: string, cwd: string[], fs: FsNode): string {
   const tokens = tokenize(input)
   if (tokens.length === 0) return input
   const isFirst = tokens.length === 1 && !/\s$/.test(input)
@@ -233,7 +235,7 @@ export function complete(input: string, cwd: string[]): string {
   const baseTarget = dirPart ? dirPart : '.'
   const basePath = resolvePath(cwd, baseTarget)
   if (!basePath) return input
-  const baseNode = getNode(basePath) ?? root
+  const baseNode = getNode(fs, basePath) ?? fs
   if (baseNode.type !== 'dir') return input
   const names = Object.entries(baseNode.children).map(([n, child]) =>
     child.type === 'dir' ? n + '/' : n,

@@ -6,6 +6,12 @@ export const about = {
   ],
 }
 
+export type Involvement = {
+  role: string
+  org: string
+  href?: string
+}
+
 export type Experience = {
   kind?: 'work' | 'edu'
   role: string
@@ -19,6 +25,8 @@ export type Experience = {
   detail?: string
   /** Small badge (e.g. "incoming", "co-op"). */
   tag?: string
+  /** Activities / clubs / honors — used by the education entry. */
+  involvement?: Involvement[]
 }
 
 export const experience: Experience[] = [
@@ -79,6 +87,14 @@ export const experience: Experience[] = [
     location: 'Boston, MA',
     detail:
       '4.0 GPA. Coursework: Object Oriented Design, Databases, Data Structures + Algorithms, Fundamentals of Computer Science I/II, Cloud Computing, Foundations of Data Science, Intro to Cybersecurity.',
+    involvement: [
+      { role: 'Honors Scholar', org: 'John Martinson Honors Program' },
+      { role: 'Vice President', org: 'NU UTSAV' },
+      { role: 'Data Analyst', org: 'IdeaNU' },
+      { role: 'Software Engineer', org: 'TEDx Northeastern' },
+      { role: 'Developer', org: 'Oasis' },
+      { role: 'Research Assistant', org: 'Neuroscience Movement Lab' },
+    ],
   },
 ]
 
