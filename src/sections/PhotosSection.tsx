@@ -78,15 +78,21 @@ export function PhotosSection() {
       <SectionHeading id="photos" eyebrow="Photos" title="things I saw" />
 
       {loading ? (
-        <Grid>
+        <Masonry>
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="aspect-square w-full bg-ink/10 animate-pulse" />
+            <div
+              key={i}
+              className="mb-3 md:mb-4 aspect-square w-full bg-ink/10 animate-pulse"
+            />
           ))}
-        </Grid>
+        </Masonry>
       ) : (
-        <Grid>
+        <Masonry>
           {tiles.map((p, i) => (
-            <figure key={p.filename} className="group">
+            <figure
+              key={p.filename}
+              className="group mb-3 md:mb-4 break-inside-avoid"
+            >
               <button
                 type="button"
                 onClick={() => setOpenIndex(i)}
@@ -98,7 +104,7 @@ export function PhotosSection() {
                     src={p.thumbSrc}
                     alt={p.caption}
                     loading="lazy"
-                    className={`${ratioClass[p.ratio ?? 'square']} w-full object-cover border border-ink/10 group-hover:opacity-90 transition-opacity`}
+                    className="w-full h-auto border border-ink/10 group-hover:opacity-90 transition-opacity"
                   />
                 ) : (
                   <div
@@ -114,7 +120,7 @@ export function PhotosSection() {
               </figcaption>
             </figure>
           ))}
-        </Grid>
+        </Masonry>
       )}
 
       <PhotoModal
@@ -128,8 +134,14 @@ export function PhotosSection() {
   )
 }
 
-function Grid({ children }: { children: React.ReactNode }) {
-  return <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">{children}</div>
+function Masonry({ children }: { children: React.ReactNode }) {
+  // CSS columns: tiles flow top-to-bottom, then wrap to next column.
+  // Children must use break-inside-avoid + bottom margin to space cleanly.
+  return (
+    <div className="columns-2 md:columns-3 gap-3 md:gap-4 [&>*]:break-inside-avoid">
+      {children}
+    </div>
+  )
 }
 
 function slugCaption(s: string) {
