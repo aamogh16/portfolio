@@ -41,16 +41,25 @@ export function ThoughtsSection() {
   const items: DisplayThought[] = live && live.length > 0 ? live : fallbackThoughts
 
   const [openSlug, setOpenSlug] = useState<string | null>(null)
-  const active = items.find((t) => t.slug === openSlug) ?? null
+  const activeIndex = openSlug ? items.findIndex((t) => t.slug === openSlug) : -1
+  const active = activeIndex >= 0 ? items[activeIndex] : null
 
   const modalThought: ModalThought | null = active
     ? {
+        slug: active.slug,
         title: active.title,
         date: active.date,
         preview: active.preview,
         body: active.portableBody ?? active.body,
       }
     : null
+
+  const goPrev =
+    activeIndex > 0 ? () => setOpenSlug(items[activeIndex - 1].slug) : undefined
+  const goNext =
+    activeIndex >= 0 && activeIndex < items.length - 1
+      ? () => setOpenSlug(items[activeIndex + 1].slug)
+      : undefined
 
   return (
     <section className="container-prose py-20 md:py-28">
@@ -85,6 +94,8 @@ export function ThoughtsSection() {
         open={openSlug !== null}
         thought={modalThought}
         onClose={() => setOpenSlug(null)}
+        onPrev={goPrev}
+        onNext={goNext}
       />
     </section>
   )

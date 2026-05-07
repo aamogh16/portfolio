@@ -60,6 +60,10 @@ export type Project = {
   repo?: string
   year: number
   stack?: string[]
+  /** Optional long-form description shown in the project modal. */
+  description?: string[]
+  /** Optional bullet highlights shown in the modal under "what's interesting". */
+  highlights?: string[]
 }
 
 export const projects: Project[] = [
@@ -70,6 +74,15 @@ export const projects: Project[] = [
     repo: '#',
     year: 2025,
     stack: ['Rust'],
+    description: [
+      'I got tired of every placeholder generator giving me the same eight Latin sentences. lorem is a CLI that produces text that reads like real prose — tuned to your domain (essay, product copy, code comments) and length.',
+      'It’s about 600 lines of Rust, ships as a single static binary, and does one thing: print convincingly fake words to stdout. No config, no flags you have to memorize, no plugins.',
+    ],
+    highlights: [
+      '600 lines of Rust, single static binary',
+      'Domain modes: essay / product / comments',
+      'Reads stdin to mimic the cadence of an existing piece of text',
+    ],
   },
   {
     name: 'cafe-rank',
@@ -77,6 +90,15 @@ export const projects: Project[] = [
     href: '#',
     year: 2025,
     stack: ['Next.js', 'Postgres'],
+    description: [
+      'A small private app I keep on my phone. I rate every café I work from on four axes — noise, light, wifi, vibe — and the app sorts them so I always know where to go when I need to think.',
+      'Yes, this is silly. No, I will not stop using it.',
+    ],
+    highlights: [
+      'Four-axis 1–5 scoring (noise, light, wifi, vibe)',
+      'Private, single-user; deployed on Vercel + Neon',
+      'Apple Maps integration so the right café is always one tap away',
+    ],
   },
   {
     name: 'mono',
@@ -84,12 +106,30 @@ export const projects: Project[] = [
     repo: '#',
     year: 2024,
     stack: ['TypeScript', 'Vite'],
+    description: [
+      'mono is the smallest blog engine I could justify writing. You drop markdown files into a folder, run the build, and it spits out a static site that looks like a man page on purpose.',
+      'I wrote it because every off-the-shelf option made me read 40 pages of docs to change a font size.',
+    ],
+    highlights: [
+      'No JS in the output, ever',
+      'Build is one TypeScript file',
+      'Theming is a ~30 line CSS variable block',
+    ],
   },
   {
     name: 'tide',
     blurb: 'Personal habit-tracker that grades a week from A to F. Mostly Fs so far.',
     year: 2024,
     stack: ['Swift'],
+    description: [
+      'I do not need another habit app to gently encourage me. I need an app that gives me a letter grade at the end of the week and makes me feel something.',
+      'tide is a SwiftUI app I built in a weekend. You define what counts as a "good" week. It grades you. That is the whole pitch.',
+    ],
+    highlights: [
+      'Letter grades for the week (and a quiet shame counter)',
+      'All on-device — no servers, no accounts',
+      'Live activity widget that does one thing: judges you',
+    ],
   },
 ]
 

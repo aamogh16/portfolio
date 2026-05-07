@@ -1,11 +1,12 @@
-import { useEffect } from 'react'
 import { PortableText, type PortableTextComponents } from '@portabletext/react'
 import type { PortableTextBlock } from '@portabletext/react'
+import { Modal } from './Modal'
 
 const fmt = (d: string) =>
   new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
 
 export type ModalThought = {
+  slug: string
   title: string
   date: string
   preview: string
@@ -17,6 +18,8 @@ type Props = {
   open: boolean
   thought: ModalThought | null
   onClose: () => void
+  onPrev?: () => void
+  onNext?: () => void
 }
 
 const ptComponents: PortableTextComponents = {
@@ -64,55 +67,27 @@ const ptComponents: PortableTextComponents = {
 }
 
 function isPortableText(body: unknown): body is PortableTextBlock[] {
-  return Array.isArray(body) && body.length > 0 && typeof body[0] === 'object' && '_type' in (body[0] as object)
+  return (
+    Array.isArray(body) &&
+    body.length > 0 &&
+    typeof body[0] === 'object' &&
+    body[0] !== null &&
+    '_type' in (body[0] as object)
+  )
 }
 
-export function ThoughtModal({ open, thought, onClose }: Props) {
-  useEffect(() => {
-    if (!open) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.preventDefault()
-        onClose()
-      }
-    }
-    window.addEventListener('keydown', onKey)
-    // Lock body scroll while open.
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      window.removeEventListener('keydown', onKey)
-      document.body.style.overflow = prev
-    }
-  }, [open, onClose])
-
-  if (!open || !thought) return null
-
+export function ThoughtModal({ open, thought, onClose, onPrev, onNext }: Props) {
   return (
-    <div
-      className="fixed inset-0 z-40 flex items-start justify-center overflow-y-auto bg-ink/40 backdrop-blur-sm"
-      role="dialog"
-      aria-modal="true"
-      aria-label={thought.title}
-      onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose()
-      }}
+    <Modal
+      open={open && thought !== null}
+      onClose={onClose}
+      breadcrumb={thought ? `~/thoughts/${thought.slug}` : '~/thoughts'}
+      size="prose"
+      onPrev={onPrev}
+      onNext={onNext}
     >
-      <article className="my-8 md:my-16 mx-4 w-full max-w-2xl bg-cream-50 border border-ink/15 shadow-2xl">
-        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-ink/10 bg-cream-50 px-6 md:px-10 py-3">
-          <div className="font-mono text-xs uppercase tracking-[0.2em] text-ink-muted">
-            ~/thoughts/{slugifyTitle(thought.title)}
-          </div>
-          <button
-            onClick={onClose}
-            className="font-mono text-xs uppercase tracking-[0.2em] text-ink-muted hover:text-ink"
-            aria-label="Close (esc)"
-          >
-            esc ✕
-          </button>
-        </div>
-
-        <div className="px-6 md:px-10 py-10 md:py-14">
+      {thought && (
+        <article className="px-6 md:px-10 py-10 md:py-14">
           <div className="font-mono text-xs text-ink-faint">{fmt(thought.date)}</div>
           <h1 className="mt-2 font-serif text-4xl md:text-5xl leading-tight tracking-tight">
             {thought.title}
@@ -135,15 +110,8 @@ export function ThoughtModal({ open, thought, onClose }: Props) {
               </p>
             )}
           </div>
-        </div>
-      </article>
-    </div>
+        </article>
+      )}
+    </Modal>
   )
-}
-
-function slugifyTitle(t: string) {
-  return t
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
 }

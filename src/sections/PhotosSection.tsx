@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { photos as fallbackPhotos } from '../data/content'
 import { SectionHeading } from '../components/SectionHeading'
+import { PhotoModal, type ModalPhoto } from '../components/PhotoModal'
 import { useSanityQuery } from '../lib/useSanityQuery'
 import { sanityEnabled, urlFor } from '../lib/sanity'
 
@@ -38,10 +40,38 @@ const swatch = (key: string) => {
   return swatchPalette[h % swatchPalette.length]
 }
 
+type Tile = ModalPhoto & { thumbSrc: string | null }
+
 export function PhotosSection() {
   const { data, loading } = useSanityQuery<SanityPhoto[]>(QUERY)
   const livePhotos = data ?? []
   const useLive = sanityEnabled && livePhotos.length > 0
+
+  const tiles: Tile[] = useLive
+    ? livePhotos.map((p, i) => ({
+        filename: `${String(i + 1).padStart(2, '0')}-${slugCaption(p.caption)}.jpg`,
+        caption: p.caption,
+        takenAt: p.takenAt,
+        ratio: p.ratio ?? 'square',
+        src: urlFor(p.image).width(2000).fit('max').auto('format').url(),
+        thumbSrc: urlFor(p.image).width(900).fit('max').auto('format').url(),
+      }))
+    : fallbackPhotos.map((p, i) => ({
+        filename: `${String(i + 1).padStart(2, '0')}-${slugCaption(p.caption)}.jpg`,
+        caption: p.caption,
+        ratio: (p.ratio ?? 'square') as Ratio,
+        src: null,
+        swatchBg: swatch(p.src),
+        thumbSrc: null,
+      }))
+
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const active = openIndex !== null ? tiles[openIndex] : null
+  const goPrev = openIndex !== null && openIndex > 0 ? () => setOpenIndex(openIndex - 1) : undefined
+  const goNext =
+    openIndex !== null && openIndex < tiles.length - 1
+      ? () => setOpenIndex(openIndex + 1)
+      : undefined
 
   return (
     <section className="container-prose py-20 md:py-28">
@@ -53,32 +83,32 @@ export function PhotosSection() {
             <div key={i} className="aspect-square w-full bg-ink/10 animate-pulse" />
           ))}
         </Grid>
-      ) : useLive ? (
-        <Grid>
-          {livePhotos.map((p) => (
-            <figure key={p._id} className="group">
-              <img
-                src={urlFor(p.image).width(1000).fit('max').auto('format').url()}
-                alt={p.caption}
-                loading="lazy"
-                className={`${ratioClass[p.ratio ?? 'square']} w-full object-cover border border-ink/10`}
-              />
-              <figcaption className="mt-2 font-mono text-xs text-ink-faint lowercase">
-                {p.caption}
-              </figcaption>
-            </figure>
-          ))}
-        </Grid>
       ) : (
         <Grid>
-          {fallbackPhotos.map((p) => (
-            <figure key={p.src} className="group">
-              <div
-                className={`${ratioClass[p.ratio ?? 'square']} w-full border border-ink/10`}
-                style={{ background: swatch(p.src) }}
-                role="img"
-                aria-label={p.caption}
-              />
+          {tiles.map((p, i) => (
+            <figure key={p.filename} className="group">
+              <button
+                type="button"
+                onClick={() => setOpenIndex(i)}
+                className="block w-full"
+                aria-label={`Open photo: ${p.caption}`}
+              >
+                {p.thumbSrc ? (
+                  <img
+                    src={p.thumbSrc}
+                    alt={p.caption}
+                    loading="lazy"
+                    className={`${ratioClass[p.ratio ?? 'square']} w-full object-cover border border-ink/10 group-hover:opacity-90 transition-opacity`}
+                  />
+                ) : (
+                  <div
+                    className={`${ratioClass[p.ratio ?? 'square']} w-full border border-ink/10 group-hover:opacity-90 transition-opacity`}
+                    style={{ background: p.swatchBg }}
+                    role="img"
+                    aria-label={p.caption}
+                  />
+                )}
+              </button>
               <figcaption className="mt-2 font-mono text-xs text-ink-faint lowercase">
                 {p.caption}
               </figcaption>
@@ -86,12 +116,26 @@ export function PhotosSection() {
           ))}
         </Grid>
       )}
+
+      <PhotoModal
+        open={openIndex !== null}
+        photo={active}
+        onClose={() => setOpenIndex(null)}
+        onPrev={goPrev}
+        onNext={goNext}
+      />
     </section>
   )
 }
 
 function Grid({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">{children}</div>
-  )
+  return <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">{children}</div>
+}
+
+function slugCaption(s: string) {
+  return s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 24)
 }
