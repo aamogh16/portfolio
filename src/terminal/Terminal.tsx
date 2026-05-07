@@ -38,9 +38,12 @@ const PHOTOS_QUERY = `*[_type == "photo" && defined(image)] | order(coalesce(ord
 type Props = {
   open: boolean
   onClose: () => void
+  theme: import('../lib/theme').Theme
+  resolvedTheme: import('../lib/theme').ResolvedTheme
+  setTheme: (t: import('../lib/theme').Theme) => void
 }
 
-export function Terminal({ open, onClose }: Props) {
+export function Terminal({ open, onClose, theme, resolvedTheme, setTheme }: Props) {
   const [cwd, setCwd] = useState<string[]>([])
   const [lines, setLines] = useState<Line[]>(() => [
     { kind: 'out', text: bannerText() },
@@ -147,6 +150,9 @@ export function Terminal({ open, onClose }: Props) {
       openExternal: (href) => window.open(href, '_blank', 'noopener,noreferrer'),
       close: onClose,
       fs,
+      theme,
+      resolvedTheme,
+      setTheme,
     })
   }
 
@@ -199,7 +205,7 @@ export function Terminal({ open, onClose }: Props) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-ink/40 backdrop-blur-sm p-0 md:p-6"
+      className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/40 dark:bg-black/60 backdrop-blur-sm p-0 md:p-6"
       role="dialog"
       aria-modal="true"
       aria-label="Terminal"

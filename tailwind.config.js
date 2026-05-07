@@ -1,25 +1,26 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: ['./index.html', './src/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
         cream: {
-          50: '#fbf7ee',
-          100: '#f7f0e0',
-          200: '#f1e7cf',
-          300: '#e9dab7',
+          50: 'rgb(var(--cream-50) / <alpha-value>)',
+          100: 'rgb(var(--cream-100) / <alpha-value>)',
+          200: 'rgb(var(--cream-200) / <alpha-value>)',
+          300: 'rgb(var(--cream-300) / <alpha-value>)',
         },
         ink: {
-          DEFAULT: '#111111',
-          soft: '#1f1f1f',
-          muted: '#4a4a4a',
-          faint: '#7a7a7a',
+          DEFAULT: 'rgb(var(--ink) / <alpha-value>)',
+          soft: 'rgb(var(--ink-soft) / <alpha-value>)',
+          muted: 'rgb(var(--ink-muted) / <alpha-value>)',
+          faint: 'rgb(var(--ink-faint) / <alpha-value>)',
         },
         terminal: {
-          green: '#1f6f3a',
-          amber: '#a16207',
-          red: '#9a2a2a',
+          green: 'rgb(var(--terminal-green) / <alpha-value>)',
+          amber: 'rgb(var(--terminal-amber) / <alpha-value>)',
+          red: 'rgb(var(--terminal-red) / <alpha-value>)',
         },
       },
       fontFamily: {

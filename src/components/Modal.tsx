@@ -46,7 +46,7 @@ export function Modal({ open, onClose, breadcrumb, size = 'prose', onPrev, onNex
 
   return (
     <div
-      className="fixed inset-0 z-40 flex items-start justify-center overflow-y-auto bg-ink/40 backdrop-blur-sm"
+      className="fixed inset-0 z-40 flex items-start justify-center overflow-y-auto bg-black/40 dark:bg-black/60 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-label={breadcrumb}

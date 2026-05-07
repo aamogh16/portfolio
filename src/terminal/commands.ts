@@ -1,5 +1,6 @@
 import { fmtPath, getNode, resolvePath, sectionIds, type FsNode } from './fs'
 import { site, sections } from '../data/site'
+import type { ResolvedTheme, Theme } from '../lib/theme'
 
 export type Line =
   | { kind: 'in'; cwd: string; text: string }
@@ -16,6 +17,11 @@ export type CmdContext = {
   close: () => void
   /** The live filesystem, built from page content. */
   fs: FsNode
+  /** Current theme preference (may be 'system'). */
+  theme: Theme
+  /** Resolved theme actually in use ('light' or 'dark'). */
+  resolvedTheme: ResolvedTheme
+  setTheme: (t: Theme) => void
 }
 
 const helpRows: Array<[string, string]> = [
@@ -24,6 +30,7 @@ const helpRows: Array<[string, string]> = [
   ['pwd', 'print working directory'],
   ['cat <file>', 'print the contents of a file'],
   ['open <file|url>', 'open a project link, resume, or external url'],
+  ['theme [arg]', 'show or set theme — light | dark | system | toggle'],
   ['whoami', `who is running this shell`],
   ['echo <text>', 'print text'],
   ['date', 'print the current date'],
@@ -151,6 +158,30 @@ export async function run(input: string, ctx: CmdContext): Promise<void> {
       ctx.print({ kind: 'err', text: `open: ${target}: nothing to open` })
       return
     }
+    case 'theme': {
+      const arg = (rest[0] ?? '').toLowerCase()
+      if (!arg) {
+        const note = ctx.theme === 'system' ? ` (system → ${ctx.resolvedTheme})` : ''
+        ctx.print({ kind: 'out', text: `theme: ${ctx.theme}${note}` })
+        return
+      }
+      if (arg === 'toggle') {
+        const next = ctx.resolvedTheme === 'dark' ? 'light' : 'dark'
+        ctx.setTheme(next)
+        ctx.print({ kind: 'out', text: `theme → ${next}` })
+        return
+      }
+      if (arg === 'light' || arg === 'dark' || arg === 'system') {
+        ctx.setTheme(arg)
+        ctx.print({ kind: 'out', text: `theme → ${arg}` })
+        return
+      }
+      ctx.print({
+        kind: 'err',
+        text: `theme: unknown argument '${arg}'. usage: theme [light|dark|system|toggle]`,
+      })
+      return
+    }
     case 'sudo':
       ctx.print({ kind: 'err', text: `nice try.` })
       return
@@ -205,6 +236,7 @@ const allCommands = [
   'pwd',
   'cat',
   'open',
+  'theme',
   'whoami',
   'echo',
   'date',

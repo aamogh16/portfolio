@@ -2,8 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Theme tokens are RGB triplets so Tailwind utilities like `bg-cream-50/70`
+ * keep working via `rgb(var(--token) / <alpha-value>)`.
+ */
 :root {
   color-scheme: light;
+
+  --cream-50: 251 247 238;   /* #fbf7ee */
+  --cream-100: 247 240 224;  /* #f7f0e0 */
+  --cream-200: 241 231 207;  /* #f1e7cf */
+  --cream-300: 233 218 183;  /* #e9dab7 */
+
+  --ink: 17 17 17;           /* #111111 */
+  --ink-soft: 31 31 31;      /* #1f1f1f */
+  --ink-muted: 74 74 74;     /* #4a4a4a */
+  --ink-faint: 122 122 122;  /* #7a7a7a */
+
+  --terminal-green: 31 111 58;   /* #1f6f3a */
+  --terminal-amber: 161 98 7;    /* #a16207 */
+  --terminal-red: 154 42 42;     /* #9a2a2a */
+}
+
+.dark {
+  color-scheme: dark;
+
+  /* Warm dark — like reading by lamplight. Bg has a slight red bias so
+     the page feels like vellum rather than a screen. */
+  --cream-50: 20 17 13;      /* #14110d  base */
+  --cream-100: 28 24 20;     /* #1c1814  raised */
+  --cream-200: 42 36 30;     /* #2a241e  hover / chip */
+  --cream-300: 56 48 42;     /* #38302a  accent */
+
+  --ink: 236 228 211;        /* #ece4d3  body text (matches light-mode bg) */
+  --ink-soft: 196 187 168;   /* #c4bba8 */
+  --ink-muted: 140 132 120;  /* #8c8478 */
+  --ink-faint: 90 83 71;     /* #5a5347 */
+
+  --terminal-green: 109 183 132;  /* #6db784 — brighter for dark contrast */
+  --terminal-amber: 212 163 86;   /* #d4a356 */
+  --terminal-red: 217 112 112;    /* #d97070 */
 }
 
 html,
@@ -19,11 +57,13 @@ html {
 body {
   @apply bg-cream-50 text-ink font-serif antialiased;
   font-feature-settings: 'kern', 'liga', 'onum';
+  /* Smooth swap when toggling. Limit to color so layouts don't twitch. */
+  transition: background-color 200ms ease, color 200ms ease;
 }
 
 ::selection {
-  background: #111;
-  color: #fbf7ee;
+  background: rgb(var(--ink));
+  color: rgb(var(--cream-50));
 }
 
 @layer components {
