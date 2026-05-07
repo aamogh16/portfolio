@@ -21,7 +21,7 @@ export function ProjectsSection() {
             <button
               type="button"
               onClick={() => setOpenIndex(i)}
-              className="grid grid-cols-1 md:grid-cols-[8rem_1fr_auto] gap-4 md:gap-8 py-6 items-baseline w-full text-left hover:bg-cream-100/50 -mx-2 px-2 transition-colors"
+              className="grid grid-cols-1 md:grid-cols-[6rem_minmax(0,1fr)_minmax(0,14rem)] gap-4 md:gap-8 py-6 items-baseline w-full text-left hover:bg-cream-100/50 -mx-2 px-2 transition-colors"
             >
               <div className="font-mono text-sm text-ink-muted">{p.year}</div>
               <div>
@@ -33,11 +33,11 @@ export function ProjectsSection() {
                 <p className="mt-2 text-ink-soft max-w-prose">{p.blurb}</p>
               </div>
               {p.stack && (
-                <div className="flex flex-wrap gap-1.5 md:justify-end">
+                <div className="flex flex-wrap gap-2 md:justify-end">
                   {p.stack.map((s) => (
                     <span
                       key={s}
-                      className="font-mono text-[11px] uppercase tracking-[0.15em] text-ink-muted"
+                      className="font-mono text-[11px] uppercase tracking-[0.15em] border border-ink/15 px-2 py-1 text-ink-muted"
                     >
                       {s}
                     </span>
