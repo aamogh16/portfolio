@@ -1,8 +1,8 @@
 export const about = {
   body: [
-    'Hi, I’m Amogh — a student, builder, and notorious over-thinker of small details. I spend most of my time writing software, sketching out side projects late at night, and trying to make tools I actually want to use.',
-    'I’m drawn to systems that are fast, quiet, and a little bit opinionated. I like the seams where design meets engineering, where a thoughtful interface can make a complicated thing feel calm.',
-    'Outside of code, I read a lot, take too many photos, and keep a running list of cafés ranked by how loud their espresso machines are.',
+    'Hi, I\'m Amogh, a student, builder, and someone who will never turn down a plate of pasta. I spend most of my time writing software, sketching out side projects late at night, and trying to make tools I actually want to use.',
+    'I\'m drawn to the kind of work where you can tell someone cared. Fast, clean, built with a little bit of intention. I like the seams where design meets engineering, where a good interface makes something complicated feel effortless.',
+    'Outside of code, I\'m probably watching Drake Maye carve up a secondary, running the Barca highlights back for the third time, or playing a Drake album I\'ve heard a hundred times like I just discovered it. And if you ever need a dinner spot, the answer is Italian. It\'s always Italian.',
   ],
 }
 
@@ -61,6 +61,7 @@ export const experience: Experience[] = [
   {
     role: 'Software Engineer Intern',
     company: 'Wind River Environmental',
+    href: 'https://www.wrenvironmental.com/',
     period: 'Jun 2023 — Aug 2024',
     location: 'Marlborough, MA',
     bullets: [
