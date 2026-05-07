@@ -104,7 +104,7 @@ export function PhotosSection() {
                     src={p.thumbSrc}
                     alt={p.caption}
                     loading="lazy"
-                    className="w-full h-auto border border-ink/10 group-hover:opacity-90 transition-opacity"
+                    className={`${ratioClass[p.ratio ?? 'square']} w-full object-cover border border-ink/10 group-hover:opacity-90 transition-opacity`}
                   />
                 ) : (
                   <div
