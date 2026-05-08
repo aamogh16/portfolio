@@ -113,6 +113,23 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    name: 'Portfolio',
+    blurb: 'This site — a terminal-themed personal portfolio with Sanity CMS, dark mode, and a fully interactive command-line.',
+    repo: 'https://github.com/aamogh16/portfolio',
+    year: 2026,
+    stack: ['React', 'TypeScript', 'Tailwind', 'Vite', 'Sanity'],
+    description: [
+      'A personal portfolio built from scratch with a terminal aesthetic. The design uses Playfair Display for a serif warmth alongside JetBrains Mono for code elements, on a cream-and-ink palette with a full warm dark mode.',
+      'The interactive terminal (accessible via the > button) has a real command parser — ls, cd, cat, open, theme, and more — with a dynamic filesystem that mirrors live Sanity CMS content. Photos and thoughts are managed through Sanity Studio and rendered via its client SDK.',
+    ],
+    highlights: [
+      'Interactive terminal with real command parser and dynamic filesystem',
+      'Sanity CMS for photos and thoughts sections',
+      'Warm dark mode with no flash on load via inline theme script',
+      'OG/social card image generated with @resvg/resvg-js',
+    ],
+  },
+  {
     name: 'S.H.I.E.L.D.',
     blurb:
       'AI-driven threat-intelligence platform that ingests, classifies, and scores hundreds of news articles per day.',
