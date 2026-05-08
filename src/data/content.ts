@@ -1,7 +1,7 @@
 export const about = {
   body: [
     'Hi, I\’m Amogh, a student at Northeastern University studying CS. I spend a lot of my time building whether its cinecircle or toggo with generate, or something new that interests me (high frequency trading right now). ',
-    'Whenever anyone asks me what I want to do, the word impact always comes out. I don\'t want to hand someone a solution they could\'ve Googled, I want to use my unique skillset to contribute new ideas and produce alpha.',
+    'Whenever anyone asks me what I want to do, the word *impact* always comes out. I don\'t want to hand someone a solution they could\'ve Googled, I want to use my unique skillset to contribute new ideas and *produce alpha*.',
     'Outside of my IDE, I am a Boston sports fan through and through. I’ve been blessed to grow up with many championships, hopefully we have more coming. I’ve also played, coached, and refereed soccer (my favorite sport, shoutout Leo Messi). , and if you\'re ever picking a restaurant, the answer is Italian.',
   ],
 }
