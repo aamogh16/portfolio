@@ -1,7 +1,7 @@
 export const site = {
   name: 'Amogh Athimamula',
   handle: 'amogh',
-  host: 'amogh.dev',
+  host: 'amoghathimamula.com',
   tagline: 'engineer, soccer player, claude coder.',
   email: 'amoghrecruiting@gmail.com',
   socials: [
