@@ -10,7 +10,8 @@
     "lint": "tsc -b --noEmit",
     "studio": "sanity dev",
     "studio:build": "sanity build",
-    "studio:deploy": "sanity deploy"
+    "studio:deploy": "sanity deploy",
+    "og": "node scripts/og.mjs"
   },
   "dependencies": {
     "@portabletext/react": "^3.1.0",
@@ -23,6 +24,7 @@
     "styled-components": "^6.1.13"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
