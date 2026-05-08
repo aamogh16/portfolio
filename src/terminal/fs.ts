@@ -140,9 +140,9 @@ function resumeFile(): FsNode {
   return {
     type: 'file',
     content: join([
-      `# amoghathimamula.pdf`,
+      `amoghathimamula.pdf — PDF document`,
       '',
-      `Resume — opens the PDF in a new tab.`,
+      `(this is a binary file. run \`open amoghathimamula.pdf\` to view it in a new tab.)`,
     ]),
     action: 'open',
     href: '/amoghathimamula.pdf',

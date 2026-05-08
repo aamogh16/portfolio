@@ -1,8 +1,8 @@
 export const about = {
   body: [
-    'Hi, I\'m Amogh, a student, builder, and someone who will never turn down a plate of pasta. I spend most of my time writing software, sketching out side projects late at night, and trying to make tools I actually want to use.',
-    'I\'m drawn to the kind of work where you can tell someone cared. Fast, clean, built with a little bit of intention. I like the seams where design meets engineering, where a good interface makes something complicated feel effortless.',
-    'Outside of code, I\'m probably watching Drake Maye carve up a secondary, running the Barca highlights back for the third time, or playing a Drake album I\'ve heard a hundred times like I just discovered it. And if you ever need a dinner spot, the answer is Italian. It\'s always Italian.',
+    'Hi, I\’m Amogh, a student at Northeastern University studying CS. I spend a lot of my time building whether its cinecircle or toggo with generate, or something new that interests me (high frequency trading right now). ',
+    'Whenever anyone asks me what I want to do, the word impact always comes out. I don\'t want to hand someone a solution they could\'ve Googled, I want to use my unique skillset to contribute new ideas and produce alpha.',
+    'Outside of my IDE, I am a Boston sports fan through and through. I’ve been blessed to grow up with many championships, hopefully we have more coming. I’ve also played, coached, and refereed soccer (my favorite sport, shoutout Leo Messi). , and if you\'re ever picking a restaurant, the answer is Italian.',
   ],
 }
 
