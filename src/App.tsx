@@ -101,9 +101,11 @@ export default function App() {
 }
 
 function KeyHint() {
+  const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform)
+  const mod = isMac ? '⌘K' : 'Ctrl+K'
   return (
     <div className="hidden md:block fixed bottom-4 right-4 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-faint bg-cream-100 border border-ink/10 px-3 py-1.5">
-      press <kbd className="text-ink">`</kbd> or <kbd className="text-ink">⌘K</kbd> for terminal
+      press <kbd className="text-ink">`</kbd> or <kbd className="text-ink">{mod}</kbd> for terminal
     </div>
   )
 }
