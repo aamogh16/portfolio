@@ -1,1 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="3" fill="#f5efe4"/><text x="4" y="17" font-family="monospace" font-size="14" fill="#111">_</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    .bg { fill: #fbf7ee; }
+    .fg { fill: #111111; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #14110d; }
+      .fg { fill: #ece4d3; }
+    }
+  </style>
+  <rect class="bg" width="32" height="32" rx="4"/>
+  <text
+    class="fg"
+    x="3"
+    y="25"
+    font-family="'Playfair Display', 'Times New Roman', Georgia, serif"
+    font-style="italic"
+    font-weight="700"
+    font-size="24"
+  >A</text>
+  <rect class="fg" x="23" y="12" width="5" height="13"/>
+</svg>
