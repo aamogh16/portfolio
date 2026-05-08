@@ -116,6 +116,7 @@ export const projects: Project[] = [
     name: 'S.H.I.E.L.D.',
     blurb:
       'AI-driven threat-intelligence platform that ingests, classifies, and scores hundreds of news articles per day.',
+    repo: 'https://github.com/aamogh16/shield-threat-analysis',
     year: 2025,
     stack: ['Python', 'FastAPI', 'SQLAlchemy', 'Gemini API', 'SQLite', 'Pydantic'],
     description: [
@@ -133,6 +134,7 @@ export const projects: Project[] = [
     name: 'CineCircle',
     blurb:
       'Mobile-first social space for Indian cinema discussions, built with a 6-person team for the South Asian student community on campus.',
+    repo: 'https://github.com/GenerateNU/cinecircle',
     year: 2025,
     stack: ['React Native', 'Expo', 'TypeScript', 'Node.js', 'Express.js', 'Prisma', 'Supabase'],
     description: [
