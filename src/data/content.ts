@@ -176,7 +176,7 @@ export const projects: Project[] = [
     stack: ['Next.js', 'TypeScript', 'Drizzle ORM', 'Neon (pgvector)', 'Gemini API', 'Clerk', 'Tailwind CSS'],
     description: [
       'RecipeBank is a full-stack recipe management app that lets users import recipes from any URL using Gemini for extraction, search their collection by vibe or ingredient using vector embeddings, and plan weekly meals with a drag-and-drop calendar.',
-      'The app supports two users with fully isolated data via Clerk auth, a native in-app recipe search powered by Serper.dev, a shopping list with per-ingredient cost calculation, and a spice hub that filters ingredients against a curated master list.',
+      'The app supports two users with fully isolated data via Clerk auth, a native in-app recipe search powered by Serper.dev, a shopping list with per-ingredient cost calculation, and a spice hub that filters ingredients against a curated master list. Try it out for yourself and import your favorite recipes!',
     ],
     highlights: [
       'AI recipe extraction from any URL using Gemini; TikTok caption extraction via oEmbed API',
