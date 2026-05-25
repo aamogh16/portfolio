@@ -133,6 +133,7 @@ export const projects: Project[] = [
     name: 'S.H.I.E.L.D.',
     blurb:
       'AI-driven threat-intelligence platform that ingests, classifies, and scores hundreds of news articles per day.',
+    href: 'https://shield-threat-analysis.vercel.app/docs',
     repo: 'https://github.com/aamogh16/shield-threat-analysis',
     year: 2025,
     stack: ['Python', 'FastAPI', 'SQLAlchemy', 'Gemini API', 'SQLite', 'Pydantic'],
@@ -163,6 +164,26 @@ export const projects: Project[] = [
       'TMDB integration for movie data; comprehensive search and detail screens',
       'CRUD across users, posts, reviews, and movie metadata',
       'Shipped through weekly Agile sprints with a 6-person team',
+    ],
+  },
+  {
+    name: 'RecipeBank',
+    blurb:
+      'Personal recipe management app with AI-powered import, semantic search, and multi-user support.',
+    href: 'https://recipe-bank-lac.vercel.app/',
+    repo: 'https://github.com/aamogh16/recipe-bank',
+    year: 2026,
+    stack: ['Next.js', 'TypeScript', 'Drizzle ORM', 'Neon (pgvector)', 'Gemini API', 'Clerk', 'Tailwind CSS'],
+    description: [
+      'RecipeBank is a full-stack recipe management app that lets users import recipes from any URL using Gemini for extraction, search their collection by vibe or ingredient using vector embeddings, and plan weekly meals with a drag-and-drop calendar.',
+      'The app supports two users with fully isolated data via Clerk auth, a native in-app recipe search powered by Serper.dev, a shopping list with per-ingredient cost calculation, and a spice hub that filters ingredients against a curated master list.',
+    ],
+    highlights: [
+      'AI recipe extraction from any URL using Gemini; TikTok caption extraction via oEmbed API',
+      'Semantic search with 3072-dim Gemini embeddings stored in pgvector (Neon)',
+      'Drag-and-drop weekly meal planner with breakfast/lunch/dinner slots and auto-assign on recipe import',
+      'Shopping mode: per-ingredient store price input with automatic recipe-cost calculation and ratio scaling',
+      'Multi-user auth via Clerk with per-user data isolation across recipes, shopping lists, and cook log',
     ],
   },
 ]
