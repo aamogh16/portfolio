@@ -167,6 +167,24 @@ export const projects: Project[] = [
     ],
   },
   {
+    name: 'LoopPrep',
+    blurb:
+      'AI mock interview coach. Paste a job description, speak your answers, and get scored on content and delivery by a 6-agent LangGraph pipeline.',
+    repo: 'https://github.com/loganravin4/wandb-multi-agent-orchestration',
+    year: 2026,
+    stack: ['React', 'TypeScript', 'Tailwind', 'Vite', 'FastAPI', 'LangGraph', 'W&B Weave'],
+    description: [
+      'LoopPrep is a multi-agent interview coach built at the AGI House x W&B Build Day hackathon. Paste a job description and the system parses the JD, researches how that specific company interviews via Tavily web search, and builds a calibrated question queue tuned to the role domain. Quant roles get numerical algorithms, ML roles get model implementation questions.',
+      'A six-agent LangGraph pipeline handles the full session: JD Parser, Research Agent, Format Agent, Interviewer Agent, Delivery Agent, and Report Agent. Answers are transcribed via Groq Whisper, then scored in parallel on content (correctness, STAR completeness, or code quality depending on type) and delivery (WPM, filler rate, pacing). Every agent call is individually traced in W&B Weave, with per-question metrics logged to a W&B session dashboard.',
+    ],
+    highlights: [
+      '6-agent LangGraph orchestration with parallel content and delivery evaluation per answer',
+      'Groq Whisper transcription with delivery scoring: WPM, filler rate, and qualitative pacing',
+      'JD-specific question generation calibrated by role domain and company interview format',
+      'Full W&B Weave observability: agent traces, weave.Dataset question queue, and weave.Evaluation session debrief',
+    ],
+  },
+  {
     name: 'RecipeBank',
     blurb:
       'Personal recipe management app with AI-powered import, semantic search, and multi-user support.',
