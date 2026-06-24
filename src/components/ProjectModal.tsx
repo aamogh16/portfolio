@@ -1,4 +1,5 @@
 import { Modal } from './Modal'
+import { GitHubIcon } from './GitHubIcon'
 import type { Project } from '../data/content'
 
 type Props = {
@@ -46,7 +47,7 @@ export function ProjectModal({ open, project, onClose, onPrev, onNext }: Props) 
                   rel="noreferrer"
                   className="text-ink-muted hover:text-ink underline decoration-ink/20 underline-offset-4 hover:decoration-ink"
                 >
-                  ↗ source
+                  <GitHubIcon className="w-3.5 h-3.5 mr-1" /> source
                 </a>
               )}
             </div>
