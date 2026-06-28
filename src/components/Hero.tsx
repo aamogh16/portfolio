@@ -15,6 +15,8 @@ const PHRASES = [
   'Saving pets',
   'Waiting for the pipes to turn green',
   'Debugging at 2am',
+  'Tinkering in the cave',
+  'Running diagnostics with JARVIS',
   'Watching film',
   'Reading the tape',
   'Cooking Italian',
