@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { site } from '../data/site'
 import { SpinChar } from './SpinChar'
 import { GitHubIcon } from './GitHubIcon'
+import { LinkedInIcon } from './LinkedInIcon'
+import { MailIcon } from './MailIcon'
 
 type Props = {
   onOpenTerminal: () => void
@@ -90,6 +92,8 @@ export function Hero({ onOpenTerminal }: Props) {
           >
             {s.label === 'github' ? (
               <GitHubIcon className="w-3.5 h-3.5 mr-1" />
+            ) : s.label === 'linkedin' ? (
+              <LinkedInIcon className="w-3.5 h-3.5 mr-1" />
             ) : (
               <span className="text-accent">↗</span>
             )}{' '}
@@ -97,7 +101,7 @@ export function Hero({ onOpenTerminal }: Props) {
           </a>
         ))}
         <a href={`mailto:${site.email}`} className="hover:text-ink transition-colors">
-          <span className="text-accent">↗</span> email
+          <MailIcon className="w-3.5 h-3.5 mr-1" /> email
         </a>
       </div>
     </section>

@@ -1,6 +1,8 @@
 import { site } from '../data/site'
 import { SpinChar } from './SpinChar'
 import { GitHubIcon } from './GitHubIcon'
+import { LinkedInIcon } from './LinkedInIcon'
+import { MailIcon } from './MailIcon'
 
 export function Footer() {
   return (
@@ -16,11 +18,12 @@ export function Footer() {
           {site.socials.map((s) => (
             <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="hover:text-ink">
               {s.label === 'github' && <GitHubIcon className="w-3 h-3 mr-1" />}
+              {s.label === 'linkedin' && <LinkedInIcon className="w-3 h-3 mr-1" />}
               {s.label}
             </a>
           ))}
           <a href={`mailto:${site.email}`} className="hover:text-ink">
-            email
+            <MailIcon className="w-3 h-3 mr-1" />email
           </a>
         </div>
       </div>
