@@ -36,15 +36,14 @@ export const experience: Experience[] = [
     href: 'https://chewy.com',
     period: 'Jun 2026 — Aug 2026',
     location: 'Boston, MA',
-    tag: 'incoming',
+    tag: 'co-op',
   },
   {
     role: 'Software Engineer Co-op',
     company: 'Wellington Management',
     href: 'https://www.wellington.com',
-    period: 'Jan 2026 — Present',
+    period: 'Jan 2026 — Jun 2026',
     location: 'Boston, MA',
-    tag: 'co-op',
     bullets: [
       'Replaced manual email triage for 20 release engineers by engineering a full-stack alert dashboard surfacing 2,000+ categorized alerts via AWS Lambda, Python, and optimized SQL, auto-flagging critical incidents.',
       'Eliminated third-party BI tool dependency by engineering a scheduled pipeline with Python and SQL to generate interactive HTML dashboards tracking SLA compliance, surfacing breach patterns across Fixed Income systems facilitating billions in daily trading and collaborating with engineering teams to drive remediation.',
