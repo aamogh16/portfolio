@@ -36,7 +36,7 @@ export const experience: Experience[] = [
     href: 'https://chewy.com',
     period: 'Jun 2026 — Aug 2026',
     location: 'Boston, MA',
-    tag: 'co-op',
+    tag: 'intern',
   },
   {
     role: 'Software Engineer Co-op',
