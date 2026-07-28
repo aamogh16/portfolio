@@ -38,3 +38,4 @@ src/
 schemas/                     # sanity schema types (thought, photo)
 scripts/og.mjs               # generates public/og.png from SVG
 ```
+
