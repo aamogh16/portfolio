@@ -34,9 +34,8 @@ export const experience: Experience[] = [
     role: 'Software Engineer Intern — Petehealth Storefront',
     company: 'Chewy',
     href: 'https://chewy.com',
-    period: 'Jun 2026 — Present',
+    period: 'Jun 2026 — Aug 2026',
     location: 'Boston, MA',
-    tag: 'intern',
     bullets: [
       'Spearheaded an AI-assisted migration of legacy WebView screens to native bottom sheets, taking initiative beyond the original single-screen scope to build reusable automation infrastructure, migrating 10+ screens from a zero baseline while cutting per-screen migration time from a 2-week sprint to 1-2 days, a 90% reduction.',
       'Rewired vet diet authorization logic connecting pethealth-b and RxP, extending the request contract with 4 new fields (quantityType, quantityValue, orderId, orderItemId) and migrating decision authority from a local status check to RxP\'s dedicated prescription-needed endpoint, consolidating auth logic into a single integration point.',
